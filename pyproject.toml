@@ -1,0 +1,63 @@
+[project]
+name = "continuum"
+version = "0.1.0"
+description = "Persistent memory system for AI agents — hot Redis + cold PostgreSQL via MCP"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    # MCP server framework
+    "fastmcp>=2.0.0",
+    # Async PostgreSQL driver
+    "asyncpg>=0.29.0",
+    # Redis async client
+    "redis[asyncio]>=5.2.0",
+    # DB migrations
+    "alembic>=1.13.0",
+    # Data validation & settings
+    "pydantic>=2.7.0",
+    "pydantic-settings>=2.3.0",
+    # Env vars
+    "python-dotenv>=1.0.0",
+]
+
+[project.scripts]
+continuum = "continuum.server:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/continuum"]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.2.0",
+    "pytest-asyncio>=0.23.0",
+    "ruff>=0.5.0",
+    "mypy>=1.10.0",
+    "types-redis>=4.6.0",
+]
+
+# ── Ruff ──────────────────────────────────────────────────────
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+ignore = ["E501"]
+
+# ── Mypy ──────────────────────────────────────────────────────
+[tool.mypy]
+python_version = "3.12"
+strict = true
+ignore_missing_imports = true
+
+# ── Pytest ────────────────────────────────────────────────────
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+markers = [
+    "integration: tests that exercise PostgreSQL and Redis end-to-end",
+]

@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "continuum": {
+      "command": "bash",
+      "args": [
+        "examples/clients/run-continuum-stdio.sh"
+      ]
+    }
+  }
+}

@@ -1,0 +1,3 @@
+[mcp_servers.continuum]
+command = "bash"
+args = ["examples/clients/run-continuum-stdio.sh"]

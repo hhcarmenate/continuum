@@ -1,0 +1,9 @@
+# Claude Code Memory Instructions
+
+```text
+When using the continuum MCP server:
+- Always use agent_id="claude-code" on mem_save, mem_search, and mem_list.
+- Always use agent_id="claude-code" with a stable session_id on mem_session_set, mem_session_get, and mem_session_clear.
+- Default to claude-code scoped memory unless the user explicitly asks for shared cross-agent memory.
+- Reuse the same session_id for the same repository or active task whenever possible.
+```
